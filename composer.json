@@ -1,0 +1,16 @@
+{
+    "name": "mosch/php-migration",
+    "description": "Simple and lean migrations in php.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Moritz Schwörer",
+            "email": "mr.mosch@gmail.com"
+        }
+    ],
+    "platform": {"php": "5.6"},
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "5.3.*"
+    }
+}
