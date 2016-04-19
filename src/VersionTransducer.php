@@ -23,13 +23,14 @@ class VersionTransducer
 
     public function migrateUp()
     {
-        $currentVersion = $this->versionProvider->getCurrentVersion();
-        $executeMigrations = array_slice($this->migrations, array_search($currentVersion, array_keys($this->migrations))+1);
+        $executeMigrations = array_filter($this->migrations, function(MigrationInterface $migration) {
+            return $this->versionProvider->hasVersion($migration->getVersionName()) === false;
+        });
 
         foreach ($executeMigrations as $executeMigration) {
             /** @var Migration $executeMigration */
             $executeMigration->migrate();
-            $this->versionProvider->setCurrentVersion($executeMigration->getVersionName());
+            $this->versionProvider->addVersion($executeMigration->getVersionName());
         }
     }
 

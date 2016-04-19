@@ -3,6 +3,7 @@ namespace Migration;
 
 interface VersionProviderInterface
 {
-    public function getCurrentVersion();
-    public function setCurrentVersion($version);
+    public function hasVersion($version);
+    public function addVersion($version);
+    public function getLatestVersion();
 }

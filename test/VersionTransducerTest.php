@@ -16,14 +16,19 @@ class TestVersionProvider implements VersionProviderInterface
         $this->version = '2016-01-01-230556';
     }
 
-    public function getCurrentVersion()
+    public function hasVersion($version)
     {
-        return $this->version;
+        return $version == $this->version;
     }
 
-    public function setCurrentVersion($version)
+    public function addVersion($version)
     {
-        $this->version = $version;
+        return;
+    }
+
+    public function getLatestVersion()
+    {
+        return $this->version;
     }
 }
 
@@ -52,7 +57,16 @@ class VersionTransducerTest extends PHPUnit_Framework_TestCase
     public function testPushAndPop()
     {
         $a = new VersionTransducer(new TestVersionProvider());
-        $a->addMigration(new TestMigration1('2016-01-01-230556'));
+        $observer = $this->getMockBuilder('TestMigration1')
+                        ->setConstructorArgs(array('2016-01-01-230556'))
+                        ->setMethods(array('migrate'))
+                        ->getMock();
+
+        $observer->expects($this->never())
+                ->method('migrate');
+
+
+        $a->addMigration($observer);
         $a->addMigration($this->createMigration('2016-01-01-230557'));
         $a->addMigration($this->createMigration('2016-01-01-230558'));
         $a->addMigration($this->createMigration('2016-01-01-230559'));
