@@ -5,5 +5,4 @@ interface VersionProviderInterface
 {
     public function hasVersion($version);
     public function addVersion($version);
-    public function getLatestVersion();
 }
