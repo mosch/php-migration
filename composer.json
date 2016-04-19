@@ -1,6 +1,5 @@
 {
     "name": "mosch/php-migration",
-    "version": "3.0.2",
     "description": "Simple and lean migrations in php.",
     "license": "MIT",
     "authors": [
